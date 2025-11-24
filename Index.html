@@ -1,540 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOTAXiD - Digital Creator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(to bottom, #87CEEB, #1E90FF, #0066CC);
-            min-height: 100vh;
-            color: white;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        /* Animated Clouds */
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            z-index: 1;
-        }
-        
-        .cloud:before, .cloud:after {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-        }
-        
-        .cloud1 {
-            width: 120px;
-            height: 40px;
-            top: 15%;
-            left: 5%;
-            animation: float 25s infinite linear;
-        }
-        
-        .cloud1:before {
-            width: 50px;
-            height: 50px;
-            top: -25px;
-            left: 15px;
-        }
-        
-        .cloud1:after {
-            width: 70px;
-            height: 70px;
-            top: -35px;
-            left: 50px;
-        }
-        
-        .cloud2 {
-            width: 180px;
-            height: 60px;
-            top: 25%;
-            right: 8%;
-            animation: float 30s infinite linear reverse;
-        }
-        
-        .cloud2:before {
-            width: 70px;
-            height: 70px;
-            top: -35px;
-            left: 20px;
-        }
-        
-        .cloud2:after {
-            width: 90px;
-            height: 90px;
-            top: -45px;
-            left: 80px;
-        }
-        
-        .cloud3 {
-            width: 150px;
-            height: 50px;
-            top: 65%;
-            left: 10%;
-            animation: float 35s infinite linear;
-        }
-        
-        .cloud3:before {
-            width: 60px;
-            height: 60px;
-            top: -30px;
-            left: 15px;
-        }
-        
-        .cloud3:after {
-            width: 80px;
-            height: 80px;
-            top: -40px;
-            left: 60px;
-        }
-        
-        @keyframes float {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(calc(100vw + 100px)); }
-        }
-        
-        /* Main Container */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        /* Header Section */
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-top: 2rem;
-        }
-        
-        .name {
-            font-size: 5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            margin-bottom: 1rem;
-            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(45deg, #ffffff, #e6f7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .tagline {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Social Links */
-        .social-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-        
-        .social-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .social-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .social-card:hover::before {
-            left: 100%;
-        }
-        
-        .social-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .social-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ffffff, #87CEEB);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .social-name {
-            font-weight: 700;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-        }
-        
-        .social-link {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 0.8rem;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-            word-break: break-all;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .social-link:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-        
-        /* Content Sections */
-        .section {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin: 2.5rem 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-weight: 700;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(45deg, #ffffff, #87CEEB);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .about-text {
-            line-height: 1.8;
-            text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .highlight {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-        
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .skill-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 1rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .skill-item:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.25);
-        }
-        
-        /* Contact Section */
-        .contact-info {
-            text-align: center;
-            font-size: 1.2rem;
-        }
-        
-        .email-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            display: inline-block;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .email-link:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem;
-            font-size: 1.1rem;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        /* Sun Animation */
-        .sun {
-            position: absolute;
-            top: 8%;
-            right: 8%;
-            width: 90px;
-            height: 90px;
-            background: #FFD700;
-            border-radius: 50%;
-            box-shadow: 0 0 50px #FFA500, 0 0 100px #FF8C00;
-            z-index: 1;
-            animation: pulse 4s infinite alternate, rotate 20s infinite linear;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 50px #FFA500, 0 0 100px #FF8C00; }
-            100% { transform: scale(1.1); box-shadow: 0 0 70px #FFA500, 0 0 140px #FF8C00; }
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .name {
-                font-size: 3.5rem;
-                letter-spacing: 5px;
-            }
-            
-            .social-links {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .social-card {
-                padding: 1.5rem;
-            }
-            
-            .container {
-                padding: 1.5rem;
-            }
-            
-            .section {
-                padding: 2rem;
-            }
-            
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .name {
-                font-size: 2.8rem;
-                letter-spacing: 3px;
-            }
-            
-            .tagline {
-                font-size: 1.2rem;
-            }
-            
-            .social-card {
-                width: 100%;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Animated Background Elements -->
-    <div class="cloud cloud1"></div>
-    <div class="cloud cloud2"></div>
-    <div class="cloud cloud3"></div>
-    <div class="sun"></div>
-    
-    <div class="container">
-        <!-- Header Section -->
-        <div class="header">
-            <h1 class="name">NOTAXiD</h1>
-            <p class="tagline">Digital Creator • Tech & Gaming Enthusiast</p>
-        </div>
-        
-        <!-- Social Links Section -->
-        <div class="social-links">
-            <div class="social-card">
-                <div class="social-icon"><i class="fab fa-youtube"></i></div>
-                <div class="social-name">YouTube Channel</div>
-                <a href="https://youtube.com/@sunitakumarinursingofficer?si=2kQBEunrsTsRpFKk" class="social-link" target="_blank">
-                    @sunitakumarinursingofficer
-                </a>
-            </div>
-            
-            <div class="social-card">
-                <div class="social-icon"><i class="fab fa-github"></i></div>
-                <div class="social-name">GitHub Profile</div>
-                <a href="https://github.com/NotYourArisu" class="social-link" target="_blank">
-                    NotYourArisu
-                </a>
-            </div>
-            
-            <div class="social-card">
-                <div class="social-icon"><i class="fab fa-discord"></i></div>
-                <div class="social-name">Discord</div>
-                <a href="https://discord.com/channels/@me" class="social-link" target="_blank">
-                    @me
-                </a>
-            </div>
-        </div>
-        
-        <!-- About Section -->
-        <div class="section">
-            <h2 class="section-title">About NOTAXiD</h2>
-            <p class="about-text">
-                Hi, I'm <span class="highlight">NOTAXiD</span> — A passionate digital creator who specializes in creating 
-                amazing digital experiences. I love experimenting with graphics, designing clean digital interfaces, 
-                and exploring the latest in technology and gaming.
-            </p>
-            <p class="about-text">
-                When I'm not coding or designing, you'll find me gaming, exploring new tech trends, 
-                or working on creative projects that push the boundaries of digital innovation.
-            </p>
-            
-            <div class="skills-grid">
-                <div class="skill-item">Digital Content Creation</div>
-                <div class="skill-item">Graphic Design</div>
-                <div class="skill-item">Web Development</div>
-                <div class="skill-item">Gaming</div>
-                <div class="skill-item">Tech Innovation</div>
-                <div class="skill-item">UI/UX Design</div>
-            </div>
-        </div>
-        
-        <!-- Contact Section -->
-        <div class="section">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-info">
-                <p>Have a project in mind or want to collaborate?</p>
-                <p>Feel free to reach out to me!</p>
-                <a href="mailto:daksharya3898@gmail.com" class="email-link">
-                    daksharya3898@gmail.com
-                </a>
-            </div>
-        </div>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <p>Made with ❤️ by Notaxid_op</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">
-                Digital Creator • Tech Enthusiast • Gamer
-            </p>
-        </div>
-    </div>
+<meta charset="UTF-8">
+<title>!! ARISU</title>
 
-    <script>
-        // Enhanced interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            const socialCards = document.querySelectorAll('.social-card');
-            const skillItems = document.querySelectorAll('.skill-item');
-            
-            // Social cards interaction
-            socialCards.forEach(card => {
-                card.addEventListener('touchstart', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                
-                card.addEventListener('touchend', function() {
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(0) scale(1)';
-                    }, 150);
-                });
-            });
-            
-            // Skill items interaction
-            skillItems.forEach(item => {
-                item.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(1.05)';
-                });
-                
-                item.addEventListener('touchend', function() {
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1)';
-                    }, 150);
-                });
-            });
-            
-            // Add floating animation to elements on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe all sections for animation
-            document.querySelectorAll('.section, .social-card').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-        });
-    </script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        background: url("YOUR-IMAGE-LINK-HERE") no-repeat center center/cover;
+        position: relative;
+    }
+
+    /* Rain Effect */
+    .rain {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background-image: url("https://i.imgur.com/O7MZqgB.png");
+        animation: rainMove 0.4s linear infinite;
+        opacity: 0.55;
+    }
+
+    @keyframes rainMove {
+        from { background-position: 0 0; }
+        to { background-position: -100px 100px; }
+    }
+
+    /* Center Box */
+    .box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.6);
+        padding: 25px 40px;
+        border-radius: 10px;
+        text-align: center;
+        backdrop-filter: blur(7px);
+        border: 1px solid cyan;
+        box-shadow: 0 0 20px cyan;
+    }
+
+    h1 {
+        color: cyan;
+        font-size: 2.4rem;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: white;
+        font-size: 1rem;
+        margin-top: 5px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="rain"></div>
+
+<div class="box">
+    <h1>!! ARISU</h1>
+    <p>Email: <b>daksharya38989@gmail.com</b></p>
+    <p>Welcome to my hacker-style gamer profile 😎🔥</p>
+</div>
+
 </body>
 </html>
-div class="social-card">
-  <div class="social-icon"><i class="fas fa-search"></i></div>
-  <div class="social-name">Open Google</div>
-  <a href="https://www.google.com" class="social-link" target="_blank" rel="noopener noreferrer">
-    Open Google
-  </a>
-</div>
