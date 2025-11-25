@@ -1,523 +1,587 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>XEROXyyy — Gaming Zone</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --glass: rgba(255,255,255,0.04);
-    --accent: #00ffff;
-    --bg-dark: #020204;
-    --text: #e9f7ff;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;width:100%;background:var(--bg-dark);font-family:'Poppins',system-ui,Arial;overflow:hidden;color:var(--text)}
-  /* layout */
-  #stage{position:fixed;inset:0;overflow:hidden}
-  canvas.bgcanvas{position:absolute;inset:0;z-index:0;display:block}
-  .ui{
-    position:relative;z-index:5;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;
-    pointer-events:none;
-  }
-  .card{
-    pointer-events:auto; width:min(980px,94%); max-width:1100px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));
-    border:1px solid rgba(255,255,255,0.06); border-radius:18px; padding:20px; box-shadow:0 18px 50px rgba(0,0,0,0.6);
-    display:grid; grid-template-columns: 1fr 320px; gap:18px; align-items:center;
-    backdrop-filter: blur(8px);
-  }
-  /* left */
-  .left { padding:12px 18px; }
-  .logoRow{display:flex;gap:12px;align-items:center}
-  .pfp{
-    width:150px;height:150px;border-radius:999px;border:3px solid var(--accent); box-shadow:0 0 40px var(--accent); overflow:hidden; flex-shrink:0;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18));
-  }
-  .pfp img{width:100%;height:100%;object-fit:cover;display:block}
-  h1{font-size:2.2rem;margin-bottom:4px; letter-spacing:0.6px}
-  p.lead{opacity:0.9;margin-bottom:12px}
-  .buttons{display:flex;gap:10px;flex-wrap:wrap}
-  .btn{
-    padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;
-    background:linear-gradient(90deg, rgba(0,255,255,0.15), rgba(255,0,255,0.08)); color:var(--text);
-    box-shadow:0 6px 22px rgba(0,0,0,0.5);
-  }
-  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06)}
-  .btn:active{transform:translateY(1px)}
-  .small{font-size:0.9rem;opacity:0.95}
-  /* right sidebar */
-  .right{
-    padding:14px; border-radius:12px; background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(255,255,255,0.02));
-    border:1px solid rgba(255,255,255,0.03);
-  }
-  .themeList{display:flex;flex-direction:column;gap:10px}
-  .themeItem{display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px;border-radius:10px;background:rgba(255,255,255,0.015)}
-  .themeColor{width:44px;height:36px;border-radius:8px;flex-shrink:0;border:1px solid rgba(255,255,255,0.06)}
-  footer{margin-top:14px;font-size:0.92rem;opacity:0.9}
-  a.contact{color:var(--accent);text-decoration:none;font-weight:700}
-
-  /* responsiveness */
-  @media (max-width:880px){
-    .card{grid-template-columns:1fr; padding:14px}
-    .pfp{width:120px;height:120px}
-  }
-
-  /* subtle floating / parallax effect for the content */
-  .float {
-    transform-origin:center;
-    transition: transform 0.35s cubic-bezier(.2,.9,.3,1);
-  }
-  .tag{
-    display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;font-size:0.86rem;
-    background: linear-gradient(90deg, rgba(0,255,255,0.06), rgba(255,0,255,0.04)); border:1px solid rgba(255,255,255,0.04)
-  }
-
-  /* small helper for legend */
-  .legend{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOTAXiD - Digital Creator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background Elements */
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        
+        .bg1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            animation: float 20s infinite linear;
+        }
+        
+        .bg2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 8%;
+            animation: float 25s infinite linear reverse;
+        }
+        
+        .bg3 {
+            width: 100px;
+            height: 100px;
+            top: 80%;
+            left: 15%;
+            animation: float 30s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+        }
+        
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: bold;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .profile-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .name {
+            font-size: 4.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Social Links */
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .social-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .social-card:hover::before {
+            left: 100%;
+        }
+        
+        .social-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .social-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .social-name {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .social-link {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.8rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            word-break: break-all;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        /* Content Sections */
+        .section {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .about-text {
+            line-height: 1.8;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        /* Timeline Section */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .timeline-item {
+            text-align: center;
+            flex: 1;
+            padding: 1rem;
+        }
+        
+        .year {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .event {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .skill-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .skill-item:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        /* Contact Section */
+        .contact-info {
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .email-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .email-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .name {
+                font-size: 3.5rem;
+                letter-spacing: 5px;
+            }
+            
+            .social-links {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .social-card {
+                padding: 1.5rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .section {
+                padding: 2rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .timeline {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .profile-image {
+                width: 150px;
+                height: 150px;
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .name {
+                font-size: 2.8rem;
+                letter-spacing: 3px;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .social-card {
+                width: 100%;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="stage" aria-hidden="false">
-    <!-- layered canvases for different effects -->
-    <canvas id="canvas-base" class="bgcanvas"></canvas>
-    <canvas id="canvas-mid" class="bgcanvas"></canvas>
-    <canvas id="canvas-top" class="bgcanvas"></canvas>
-  </div>
-
-  <div class="ui">
-    <div class="card float" id="maincard">
-      <div class="left">
-        <div class="logoRow">
-          <div class="pfp" title="Profile picture">
-            <!-- replace pfp.png in repo with your image -->
-            <img src="pfp.png" alt="XEROXyyy profile picture" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22><rect width=%22150%22 height=%22150%22 fill=%22%23000%22/><text x=%2275%22 y=%2280%22 fill=%22%23fff%22 font-size=%2214%22 font-family=%22Poppins%22 text-anchor=%22middle%22>pfp.png</text></svg>'">
-          </div>
-          <div style="margin-left:10px">
-            <h1>XEROXyyy — Gaming Zone</h1>
-            <div class="legend small">
-              <span class="tag">Gaming • Animation • Vibes</span>
-              <span style="display:flex;gap:8px;align-items:center">
-                <span class="dot" style="background:#7afcff"></span><small>Neon</small>
-                <span class="dot" style="background:#ff8bd4;margin-left:6px"></span><small>Anime</small>
-                <span class="dot" style="background:#ff5b4d;margin-left:6px"></span><small>Ember</small>
-              </span>
+    <!-- Animated Background Elements -->
+    <div class="bg-element bg1"></div>
+    <div class="bg-element bg2"></div>
+    <div class="bg-element bg3"></div>
+    
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="profile-container">
+                <div class="profile-image">
+                    <div class="profile-text">N</div>
+                </div>
             </div>
-          </div>
+            <h1 class="name">NOTAXiD</h1>
+            <p class="tagline">Digital Creator • Tech & Gaming Enthusiast</p>
         </div>
-
-        <p class="lead" style="margin-top:12px">Welcome — this is your flashy GitHub Pages site. Pick a theme on the right, or click the demo buttons for extra effects. Make sure <strong>pfp.png</strong> is uploaded in the repo root.</p>
-
-        <div class="buttons">
-          <button class="btn" onclick="toggleParallax()">Toggle Parallax</button>
-          <button class="btn ghost" onclick="flashAll()">Glitch Flash</button>
-          <button class="btn" onclick="downloadDemo()">Download HTML</button>
+        
+        <!-- Timeline Section -->
+        <div class="section">
+            <h2 class="section-title">Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="year">2005</div>
+                    <div class="event">BEGINNING</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">PRE</div>
+                    <div class="event">LEARNING</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">ARF</div>
+                    <div class="event">GROWTH</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2017</div>
+                    <div class="event">BREAKTHROUGH</div>
+                </div>
+            </div>
         </div>
-
-        <footer>
-          Contact: <a class="contact" href="mailto:daksharya38989@gmail.com">daksharya38989@gmail.com</a><br>
-          Want a custom intro? DM me here or edit this file.
-        </footer>
-      </div>
-
-      <aside class="right">
-        <strong style="display:block;margin-bottom:10px">Choose Background</strong>
-        <div class="themeList" id="themes">
-          <div class="themeItem" data-theme="neon" onclick="setTheme('neon')">
-            <div class="themeColor" style="background:linear-gradient(90deg,#6b0f9c,#0ff)"></div>
-            <div>
-              <div style="font-weight:800">Neon Cyber City</div>
-              <small>Tokyo neon, rain & reflections</small>
+        
+        <!-- Social Links Section -->
+        <div class="social-links">
+            <div class="social-card">
+                <div class="social-icon"><i class="fab fa-youtube"></i></div>
+                <div class="social-name">YouTube Channel</div>
+                <a href="https://youtube.com/@sunitakumarinursingofficer?si=2kQBEunrsTsRpFKk" class="social-link" target="_blank">
+                    @sunitakumarinursingofficer
+                </a>
             </div>
-          </div>
-
-          <div class="themeItem" data-theme="room" onclick="setTheme('room')">
-            <div class="themeColor" style="background:linear-gradient(180deg,#0b1020,#122133)"></div>
-            <div>
-              <div style="font-weight:800">Gaming Room</div>
-              <small>PC setup, LED strips, soft glow</small>
+            
+            <div class="social-card">
+                <div class="social-icon"><i class="fab fa-github"></i></div>
+                <div class="social-name">GitHub Profile</div>
+                <a href="https://github.com/NotYourArisu" class="social-link" target="_blank">
+                    NotYourArisu
+                </a>
             </div>
-          </div>
-
-          <div class="themeItem" data-theme="anime" onclick="setTheme('anime')">
-            <div class="themeColor" style="background:linear-gradient(90deg,#ff7ad0,#6be0ff)"></div>
-            <div>
-              <div style="font-weight:800">Anime Gaming</div>
-              <small>Soft neon, pastel glow, gentle motion</small>
+            
+            <div class="social-card">
+                <div class="social-icon"><i class="fab fa-discord"></i></div>
+                <div class="social-name">Discord</div>
+                <a href="https://discord.com/channels/@me" class="social-link" target="_blank">
+                    @me
+                </a>
             </div>
-          </div>
-
-          <div class="themeItem" data-theme="ember" onclick="setTheme('ember')">
-            <div class="themeColor" style="background:linear-gradient(90deg,#ff6b4d,#2a0b0b)"></div>
-            <div>
-              <div style="font-weight:800">Dark Red Ember</div>
-              <small>Ember sparks, smoky shadows</small>
-            </div>
-          </div>
         </div>
-
-        <div style="margin-top:14px">
-          <small>Tip: upload <code>pfp.png</code> to repo root so it appears here.</small>
+        
+        <!-- About Section -->
+        <div class="section">
+            <h2 class="section-title">About NOTAXiD</h2>
+            <p class="about-text">
+                Hi, I'm <span class="highlight">NOTAXiD</span> — A passionate digital creator who specializes in creating 
+                amazing digital experiences. I love experimenting with graphics, designing clean digital interfaces, 
+                and exploring the latest in technology and gaming.
+            </p>
+            <p class="about-text">
+                When I'm not coding or designing, you'll find me gaming, exploring new tech trends, 
+                or working on creative projects that push the boundaries of digital innovation.
+            </p>
+            
+            <div class="skills-grid">
+                <div class="skill-item">Digital Content Creation</div>
+                <div class="skill-item">Graphic Design</div>
+                <div class="skill-item">Web Development</div>
+                <div class="skill-item">Gaming</div>
+                <div class="skill-item">Tech Innovation</div>
+                <div class="skill-item">UI/UX Design</div>
+            </div>
         </div>
-      </aside>
+        
+        <!-- Contact Section -->
+        <div class="section">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-info">
+                <p>Have a project in mind or want to collaborate?</p>
+                <p>Feel free to reach out to me!</p>
+                <a href="mailto:daksharya38989@gmail.com" class="email-link">
+                    daksharya38989@gmail.com
+                </a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Made with ❤️ by Notaxid_op</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">
+                Digital Creator • Tech Enthusiast • Gamer
+            </p>
+        </div>
     </div>
-  </div>
 
-<script>
-/* -------------------------
-   Canvas multi-layer setup
-   ------------------------- */
-const canvBase = document.getElementById('canvas-base');
-const canvMid  = document.getElementById('canvas-mid');
-const canvTop  = document.getElementById('canvas-top');
-const layers = [
-  {el:canvBase, ctx:canvBase.getContext('2d')},
-  {el:canvMid,  ctx:canvMid.getContext('2d')},
-  {el:canvTop,  ctx:canvTop.getContext('2d')}
-];
-let W = innerWidth, H = innerHeight;
-function resizeAll(){
-  W = innerWidth; H = innerHeight;
-  layers.forEach(l=>{ l.el.width = W; l.el.height = H; });
-}
-resizeAll();
-addEventListener('resize', resizeAll);
-
-/* common utilities */
-function rand(min,max){ return Math.random()*(max-min)+min }
-function clamp(v,a,b){ return Math.max(a,Math.min(b,v)) }
-
-/* app state */
-const state = {
-  theme: 'neon', // 'neon'|'room'|'anime'|'ember'
-  parallax: true,
-  t: 0
-};
-
-/* particle groups for each theme */
-let particles = { base:[], mid:[], top:[] };
-
-/* initialize theme particles */
-function initTheme(th){
-  particles = { base:[], mid:[], top:[] };
-  if(th === 'neon'){
-    // neon city: long rain streaks, floating glow specs, soft fog
-    for(let i=0;i<220;i++){
-      particles.base.push({x:rand(0,W), y:rand(-H, H), l:rand(8,28), w:rand(0.6,1.6), vx:rand(-0.2,0.2), vy:rand(8,18), c: `hsla(${rand(180,260)},100%,60%,`});
-    }
-    for(let i=0;i<120;i++){
-      particles.mid.push({x:rand(0,W), y:rand(0,H), r:rand(0.6,3.1), vx:rand(-0.2,0.2), vy:rand(-0.2,0.2), hue:rand(200,320)});
-    }
-    // top: scanlines / glow orbs
-    for(let i=0;i<20;i++){
-      particles.top.push({x:rand(80,W-80), y:rand(80,H-80), rx:rand(40,220), ry:rand(8,28), a:rand(0.02,0.18), hue: rand(190,290)});
-    }
-  } else if(th === 'room'){
-    // gaming room: floating dust, monitor glow, subtle bokeh
-    for(let i=0;i<140;i++){
-      particles.base.push({x:rand(0,W), y:rand(0,H), r:rand(0.6,2.6), vx:rand(-0.2,0.2), vy:rand(-0.1,0.1), a:rand(0.06,0.22)});
-    }
-    for(let i=0;i<60;i++){
-      particles.mid.push({x:rand(0,W), y:rand(0,H), l:rand(20,70), vx:rand(-0.3,0.3), vy:rand(2,6), c:`rgba(80,200,255,`});
-    }
-    for(let i=0;i<6;i++){
-      particles.top.push({x: W*0.6 + rand(-120,120), y: H*0.42+rand(-60,60), w:rand(160,350), h:rand(80,160), glow:rand(0.12,0.3)});
-    }
-  } else if(th === 'anime'){
-    // anime: soft floating sakura-like particles + pastel orbs
-    for(let i=0;i<160;i++){
-      particles.base.push({x:rand(0,W), y:rand(0,H), r:rand(1,3), vx:rand(-0.2,0.4), vy:rand(-0.1,0.6), hue:rand(300,360), a:rand(0.12,0.5)});
-    }
-    for(let i=0;i<100;i++){
-      particles.mid.push({x:rand(0,W), y:rand(0,H), r:rand(2,7), vx:rand(-0.2,0.2), vy:rand(-0.2,0.2), hue:rand(180,260)});
-    }
-    for(let i=0;i<10;i++){
-      particles.top.push({x:rand(40,W-40), y:rand(40,H-40), rx:rand(80,220), ry:rand(80,260), a:rand(0.06,0.16), hue:rand(300,340)});
-    }
-  } else if(th === 'ember'){
-    // ember: sparks, ember streaks, smoky fog
-    for(let i=0;i<180;i++){
-      particles.base.push({x:rand(0,W), y:rand(0,H), r:rand(0.8,2.8), vx:rand(-0.1,0.1), vy:rand(-0.2,0.6), a:rand(0.08,0.35), hue:rand(10,30)});
-    }
-    for(let i=0;i<120;i++){
-      particles.mid.push({x:rand(0,W), y:rand(H*0.6,H), l:rand(10,36), vx:rand(-0.2,0.8), vy:rand(-2,-6), c:`rgba(255,${rand(80,140)},${rand(20,40)},`});
-    }
-    for(let i=0;i<12;i++){
-      particles.top.push({x:rand(0,W), y:rand(0,H*0.6), rx:rand(120,420), a:rand(0.03,0.12)});
-    }
-  }
-}
-
-/* start with default theme */
-initTheme(state.theme);
-
-/* draw loop */
-let last = performance.now();
-function draw(now){
-  const dt = (now - last)/1000;
-  last = now;
-  state.t += dt;
-
-  // clear
-  layers.forEach(l=> l.ctx.clearRect(0,0,W,H));
-
-  if(state.theme === 'neon'){ drawNeon(dt); }
-  else if(state.theme === 'room'){ drawRoom(dt); }
-  else if(state.theme === 'anime'){ drawAnime(dt); }
-  else if(state.theme === 'ember'){ drawEmber(dt); }
-
-  requestAnimationFrame(draw);
-}
-requestAnimationFrame(draw);
-
-/* -------------------------
-   THEME DRAWERS
-   ------------------------- */
-
-function drawNeon(dt){
-  const base = layers[0].ctx;
-  const mid  = layers[1].ctx;
-  const top  = layers[2].ctx;
-
-  // base gradient + distant city bars
-  const g = base.createLinearGradient(0,H*0.15,0,H);
-  g.addColorStop(0,'#0a0612'); g.addColorStop(0.45,'#0b0b14'); g.addColorStop(1,'#020204');
-  base.fillStyle = g;
-  base.fillRect(0,0,W,H);
-
-  // city silhouette shapes
-  for(let i=0;i<20;i++){
-    const x = (i/20)*W + Math.sin(state.t*0.2 + i)*40;
-    const h = 80 + (i%4)*40 + Math.abs(Math.sin(i*0.3+state.t*0.4))*220;
-    base.fillStyle = `rgba(4,8,20,${0.5})`;
-    base.fillRect(x, H - h, W/22, h);
-    // neon sign bars
-    base.fillStyle = `rgba(${Math.floor(200+Math.sin(i+state.t)*40)},${Math.floor(80+Math.cos(i+state.t)*80)},${Math.floor(200+Math.cos(i)*30)},0.06)`;
-    base.fillRect(x+4, H - h + 10, 14, 6);
-  }
-
-  // rain streaks (base)
-  base.globalCompositeOperation = 'lighter';
-  for(let p of particles.base){
-    p.x += p.vx; p.y += p.vy;
-    if(p.y > H + 40){ p.y = rand(-200,-20); p.x = rand(0,W); }
-    base.strokeStyle = `rgba(180,210,255,0.06)`;
-    base.lineWidth = p.w;
-    base.beginPath();
-    base.moveTo(p.x, p.y);
-    base.lineTo(p.x + p.vx*6, p.y + p.l);
-    base.stroke();
-  }
-  base.globalCompositeOperation = 'source-over';
-
-  // mid: floating orbs
-  for(let p of particles.mid){
-    p.x += p.vx; p.y += p.vy;
-    if(p.x < -20) p.x = W+20; if(p.x > W+20) p.x = -20;
-    if(p.y < -40) p.y = H+40; if(p.y > H+40) p.y = -40;
-    const rad = p.r;
-    const hue = p.hue;
-    mid.beginPath();
-    const grd = mid.createRadialGradient(p.x,p.y,0,p.x,p.y,rad*8);
-    grd.addColorStop(0, `hsla(${hue},95%,60%,0.25)`);
-    grd.addColorStop(1, `rgba(0,0,0,0)`);
-    mid.fillStyle = grd;
-    mid.fillRect(p.x-rad*8,p.y-rad*8,rad*16,rad*16);
-  }
-
-  // top: large glow streaks / lens
-  for(let t of particles.top){
-    t.a = 0.08 + 0.06*Math.sin(state.t*0.6);
-    top.beginPath();
-    const rg = top.createRadialGradient(t.x,t.y,0,t.x,t.y,t.rx);
-    rg.addColorStop(0, `hsla(${t.hue},100%,65%,${t.a})`);
-    rg.addColorStop(1, 'rgba(0,0,0,0)');
-    top.fillStyle = rg;
-    top.fillRect(t.x - t.rx, t.y - t.ry, t.rx*2, t.ry*2);
-  }
-}
-
-function drawRoom(dt){
-  const base = layers[0].ctx;
-  const mid  = layers[1].ctx;
-  const top  = layers[2].ctx;
-
-  // base: room gradient (dark teal)
-  const bg = base.createLinearGradient(0,0,0,H);
-  bg.addColorStop(0,'#050611'); bg.addColorStop(1,'#071226');
-  base.fillStyle = bg;
-  base.fillRect(0,0,W,H);
-
-  // monitor silhouette (soft glow)
-  const mx = W*0.55, my = H*0.45;
-  base.fillStyle = 'rgba(8,20,30,0.9)';
-  base.fillRect(mx-260, my-120, 520, 240);
-  base.fillStyle = 'rgba(20,140,255,0.04)';
-  base.fillRect(mx-240, my-100, 480, 200);
-
-  // mid: LED strips (top-left corner)
-  for(let i=0;i<12;i++){
-    const x = 40 + i*40;
-    const y = 28 + Math.sin((state.t*2)+i)*6;
-    mid.fillStyle = `rgba(${20+i*8},${120 + i*6},${240 - i*6},0.12)`;
-    mid.fillRect(x,y,28,6);
-  }
-
-  // floating dust (base)
-  for(let p of particles.base){
-    p.x += p.vx; p.y += p.vy;
-    if(p.x < -20) p.x = W+20; if(p.x > W+20) p.x = -20;
-    if(p.y < -20) p.y = H+20; if(p.y > H+20) p.y = -20;
-    base.globalAlpha = p.a;
-    base.beginPath();
-    base.fillStyle = `rgba(200,220,255,${p.a})`;
-    base.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    base.fill();
-    base.globalAlpha = 1;
-  }
-
-  // mid: falling streaks (like window rain)
-  mid.globalCompositeOperation = 'lighter';
-  for(let s of particles.mid){
-    s.x += s.vx; s.y += s.vy;
-    if(s.y > H+30){ s.y = rand(-120,-20); s.x = rand(0,W); }
-    mid.strokeStyle = s.c + '0.08)';
-    mid.lineWidth = 1.2;
-    mid.beginPath();
-    mid.moveTo(s.x, s.y);
-    mid.lineTo(s.x + s.vx*4, s.y + s.l);
-    mid.stroke();
-  }
-  mid.globalCompositeOperation = 'source-over';
-
-  // top: monitor glow rectangles
-  for(let g of particles.top){
-    top.beginPath();
-    const grd = top.createLinearGradient(g.x - g.w/2, g.y - g.h/2, g.x + g.w/2, g.y + g.h/2);
-    grd.addColorStop(0, 'rgba(0,220,255,0.06)');
-    grd.addColorStop(1, 'rgba(0,0,0,0)');
-    top.fillStyle = grd;
-    top.fillRect(g.x - g.w/2, g.y - g.h/2, g.w, g.h);
-  }
-}
-
-function drawAnime(dt){
-  const base = layers[0].ctx;
-  const mid  = layers[1].ctx;
-  const top  = layers[2].ctx;
-
-  // soft pastel background
-  const g = base.createLinearGradient(0,0,0,H);
-  g.addColorStop(0,'#ffefff'); g.addColorStop(0.5,'#eaffff'); g.addColorStop(1,'#dff3ff');
-  base.fillStyle = g; base.fillRect(0,0,W,H);
-
-  // floating sakura-like petals (base)
-  for(let p of particles.base){
-    p.x += p.vx; p.y += p.vy;
-    if(p.y > H+20){ p.y = rand(-100,-10); p.x = rand(0,W); }
-    base.save();
-    base.translate(p.x,p.y);
-    base.rotate(Math.sin(state.t + p.x*0.001));
-    base.fillStyle = `hsla(${p.hue},95%,70%,${p.a})`;
-    base.beginPath();
-    base.ellipse(0,0,p.r*2,p.r,0,0,Math.PI*2);
-    base.fill();
-    base.restore();
-  }
-
-  // mid: pastel orbs glow
-  for(let o of particles.mid){
-    o.x += o.vx; o.y += o.vy;
-    if(o.x < -40) o.x = W+40; if(o.x > W+40) o.x = -40;
-    mid.beginPath();
-    const grd = mid.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r*10);
-    grd.addColorStop(0, `hsla(${o.hue},90%,60%,0.25)`);
-    grd.addColorStop(1, 'rgba(255,255,255,0)');
-    mid.fillStyle = grd;
-    mid.fillRect(o.x - o.r*10, o.y - o.r*10, o.r*20, o.r*20);
-  }
-
-  // top: soft vignette / light beams
-  for(let b of particles.top){
-    top.beginPath();
-    const rg = top.createRadialGradient(b.x,b.y,0,b.x,b.y,b.rx);
-    rg.addColorStop(0, `hsla(${b.hue},85%,65%,${b.a})`);
-    rg.addColorStop(1, 'rgba(255,255,255,0)');
-    top.fillStyle = rg;
-    top.fillRect(b.x - b.rx, b.y - b.ry, b.rx*2, b.ry*2);
-  }
-}
-
-function drawEmber(dt){
-  const base = layers[0].ctx;
-  const mid  = layers[1].ctx;
-  const top  = layers[2].ctx;
-
-  // smoky dark base
-  const g = base.createLinearGradient(0,0,0,H);
-  g.addColorStop(0,'#0a0505'); g.addColorStop(0.6,'#0b0505'); g.addColorStop(1,'#050203');
-  base.fillStyle = g; base.fillRect(0,0,W,H);
-
-  // smoky fog
-  for(let i=0;i<6;i++){
-    const x = (i/6)*W + Math.sin(state.t*0.2 + i)*80;
-    const rg = base.createRadialGradient(x,H*0.6,20,x,H*0.6, Math.max(180, 240 + Math.sin(state.t+i)*60));
-    rg.addColorStop(0, `rgba(80,20,10,${0.045 + i*0.01})`);
-    rg.addColorStop(1,'rgba(0,0,0,0)');
-    base.fillStyle = rg;
-    base.fillRect(x - 400, H*0.2, 800, H*0.8);
-  }
-
-  // embers (base)
-  for(let p of particles.base){
-    p.x += p.vx; p.y += p.vy;
-    if(p.y < -20) { p.y = H + rand(0,200); p.x = rand(0,W); }
-    base.beginPath();
-    base.fillStyle = `hsla(${p.hue},95%,55%,${p.a})`;
-    base.arc(p.x,p.y,p.r,0,Math.PI*2);
-    base.fill();
-  }
-
-  // mid: upward ember streaks
-  mid.globalCompositeOperation = 'lighter';
-  for(let s of particles.mid){
-    s.x += s.vx; s.y += s.vy;
-    if(s.y < -30){ s.y = rand(H+20,H+160); s.x = rand(0,W); }
-    mid.strokeStyle = s.c + '0.12)';
-    mid.lineWidth = 1.2;
-    mid.beginPath();
-    mid.moveTo(s.x, s.y);
-    mid.lineTo(s.x + s.vx*4, s.y - s.l);
-    mid.stroke();
-  }
-  mid.globalCompositeOperation = 'source-over';
-
-  // top: smoky overlays
-  for(let fog of particles.top){
-    fog.a = 0.03 + 0.04*Math.sin(state.t*0.5);
-    top.beginPath();
-    const rg = top.createRadialGradient(fog.x, fog.y, 0, fog.x, fog.y, fog.rx);
-    rg.addColorStop(0, `rgba(80,20,10,${fog.a})`);
-    rg.addColorStop(1, 'rgba(0,0,0,0)');
-    top.fillStyle = rg;
-    top.fillRect(fog.x - fog.rx, fog.y - fog.rx, fog.rx*2, fog.rx*2);
-  }
-}
-
-/* -------------------------
-   Theme control & UI helpers
-   ------------------------- */
-function setTheme(name){
-  state.theme = name;
-  initTheme(name);
-  // subtle card color changes for vibe
-  const card = document.querySelector('.card');
-  if(name === 'neon'){ document.documentElement.style.setProperty('--accent','#00f0ff'); card.style.borderColor='rgba(0,255,255,0.06)'; }
-  if(name === 'room'){ document.documentElement.style.setProperty('--accent','#66d0ff'); card.style.borderColor='rgba(120,200,255,0.04)'; }
-  if(name === 'anime'){ document.documentElement.style.setProperty('--accent','#ff7acb'); card.style.borderColor='rgba(255,120,200,0.04)'; }
-  if(name === 'ember'){ document.documentElement.style.setProperty('--accent','#ff6b4d'); card.style.borderColor='rgba(255,80,40,0.06)'; }
-  // small feedback pulse
+    <script>
+        // Enhanced interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const socialCards = document.querySelectorAll('.social-card');
+            const skillItems = document.querySelectorAll('.skill-item');
+            
+            // Social cards interaction
+            socialCards.forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    }, 150);
+                });
+            });
+            
+            // Skill items interaction
+            skillItems.forEach(item => {
+                item.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(1.05)';
+                });
+                
+                item.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+            
+            // Add floating animation to elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all sections for animation
+            document.querySelectorAll('.section, .social-card, .timeline-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+          </html>
  
