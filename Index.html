@@ -3,697 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOTAXiD - Digital Creator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>NotYourArisu</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #5566cc, #463e99);
             color: white;
-            overflow-x: hidden;
-            position: relative;
+            text-align: center;
         }
-        
-        /* Animated Background Elements */
-        .bg-element {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 1;
-        }
-        
-        .bg1 {
-            width: 200px;
-            height: 200px;
-            top: 10%;
-            left: 5%;
-            animation: float 20s infinite linear;
-        }
-        
-        .bg2 {
-            width: 150px;
-            height: 150px;
-            top: 60%;
-            right: 8%;
-            animation: float 25s infinite linear reverse;
-        }
-        
-        .bg3 {
-            width: 100px;
-            height: 100px;
-            top: 80%;
-            left: 15%;
-            animation: float 30s infinite linear;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-            100% { transform: translateY(0px) rotate(360deg); }
-        }
-        
-        /* Main Container */
+
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
         }
-        
-        /* Header Section */
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-top: 2rem;
-        }
-        
-        .profile-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .profile-image {
-            width: 180px;
-            height: 180px;
+
+        /* Top PFP Circle */
+        .pfp {
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, #ffba9a, #6fd4a5);
             border-radius: 50%;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            margin: 40px auto 10px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            font-weight: bold;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .profile-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-        
-        .profile-text {
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .name {
-            font-size: 4.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            margin-bottom: 1rem;
-            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(45deg, #ffffff, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .tagline {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Social Links */
-        .social-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-        
-        .social-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .social-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .social-card:hover::before {
-            left: 100%;
-        }
-        
-        .social-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .social-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ffffff, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .social-name {
-            font-weight: 700;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-        }
-        
-        .social-link {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 0.8rem;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-            word-break: break-all;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .social-link:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-        
-        /* Content Sections */
-        .section {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin: 2.5rem 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-weight: 700;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(45deg, #ffffff, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .about-text {
-            line-height: 1.8;
-            text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .highlight {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-        
-        /* Timeline Section */
-        .timeline {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin: 2rem 0;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            position: relative;
-        }
-        
-        .timeline-item {
-            text-align: center;
-            flex: 1;
-            padding: 1rem;
-        }
-        
-        .year {
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ffd700, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-        
-        .event {
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-        }
-        
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .skill-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 1rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .skill-item:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.25);
-        }
-        
-        /* Contact Section */
-        .contact-info {
-            text-align: center;
-            font-size: 1.2rem;
-        }
-        
-        .email-link {
+            font-size: 38px;
+            font-weight: bold;
             color: white;
-            text-decoration: none;
-            font-weight: 700;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            display: inline-block;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
-        .email-link:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
+
+        h1 {
+            font-size: 48px;
+            letter-spacing: 3px;
+            margin: 10px 0;
+            font-weight: bold;
+            color: gold;
         }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem;
-            font-size: 1.1rem;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-            background: rgba(255, 255, 255, 0.1);
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .section-box {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            margin: 25px 0;
             border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .name {
-                font-size: 3.5rem;
-                letter-spacing: 5px;
-            }
-            
-            .social-links {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .social-card {
-                padding: 1.5rem;
-            }
-            
-            .container {
-                padding: 1.5rem;
-            }
-            
-            .section {
-                padding: 2rem;
-            }
-            
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .timeline {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            
-            .profile-image {
-                width: 150px;
-                height: 150px;
-                font-size: 3rem;
-            }
+
+        .journey-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
-        
-        @media (max-width: 480px) {
-            .name {
-                font-size: 2.8rem;
-                letter-spacing: 3px;
-            }
-            
-            .tagline {
-                font-size: 1.2rem;
-            }
-            
-            .social-card {
-                width: 100%;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .profile-image {
-                width: 120px;
-                height: 120px;
-                font-size: 2.5rem;
-            }
+
+        .journey-item {
+            width: 150px;
+            margin: 10px;
+        }
+
+        .journey-item h2 {
+            color: gold;
+        }
+
+        .socials {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .social-box {
+            width: 160px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            margin: 10px;
+        }
+
+        .social-box i {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.15);
+            padding: 10px 18px;
+            margin: 8px;
+            border-radius: 12px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            opacity: 0.8;
+            padding-bottom: 20px;
         }
     </style>
 </head>
+
 <body>
-    <!-- Animated Background Elements -->
-    <div class="bg-element bg1"></div>
-    <div class="bg-element bg2"></div>
-    <div class="bg-element bg3"></div>
-    
+
+    <div class="pfp">A</div>
+
+    <h1>NotYourArisu</h1>
+    <p class="subtitle">Digital Creator • Tech & Gaming Enthusiast</p>
+
     <div class="container">
-        <!-- Header Section -->
-        <div class="header">
-            <div class="profile-container">
-                <div class="profile-image">
-                    <div class="profile-text">N</div>
+
+        <!-- Journey Box -->
+        <div class="section-box">
+            <h2>Journey</h2>
+
+            <div class="journey-grid">
+                <div class="journey-item">
+                    <h2>2005</h2>
+                    <p>BEGINNING</p>
                 </div>
-            </div>
-            <h1 class="name">NOTAXiD</h1>
-            <p class="tagline">Digital Creator • Tech & Gaming Enthusiast</p>
-        </div>
-        
-        <!-- Timeline Section -->
-        <div class="section">
-            <h2 class="section-title">Journey</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="year">2005</div>
-                    <div class="event">BEGINNING</div>
+
+                <div class="journey-item">
+                    <h2>PRE</h2>
+                    <p>LEARNING</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="year">PRE</div>
-                    <div class="event">LEARNING</div>
+
+                <div class="journey-item">
+                    <h2>ARF</h2>
+                    <p>GROWTH</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="year">ARF</div>
-                    <div class="event">GROWTH</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="year">2017</div>
-                    <div class="event">BREAKTHROUGH</div>
+
+                <div class="journey-item">
+                    <h2>2017</h2>
+                    <p>BREAKTHROUGH</p>
                 </div>
             </div>
         </div>
-        
-        <!-- Social Links Section -->
-        <div class="social-links">
-            <div class="social-card">
-                <div class="social-icon"><i class="fab fa-youtube"></i></div>
-                <div class="social-name">YouTube Channel</div>
-                <a href="https://youtube.com/@sunitakumarinursingofficer?si=2kQBEunrsTsRpFKk" class="social-link" target="_blank">
-                    @sunitakumarinursingofficer
-                </a>
+
+        <!-- Social Boxes -->
+        <div class="socials">
+            <div class="social-box">
+                <i class="fa-brands fa-youtube"></i>
+                <p>YouTube Channel</p>
+                <small>@sunitakumarinursingofficer</small>
             </div>
-            
-            <div class="social-card">
-                <div class="social-icon"><i class="fab fa-github"></i></div>
-                <div class="social-name">GitHub Profile</div>
-                <a href="https://github.com/NotYourArisu" class="social-link" target="_blank">
-                    NotYourArisu
-                </a>
+
+            <div class="social-box">
+                <i class="fa-brands fa-github"></i>
+                <p>GitHub Profile</p>
+                <small>NotYourArisu</small>
             </div>
-            
-            <div class="social-card">
-                <div class="social-icon"><i class="fab fa-discord"></i></div>
-                <div class="social-name">Discord</div>
-                <a href="https://discord.com/channels/@me" class="social-link" target="_blank">
-                    @me
-                </a>
+
+            <div class="social-box">
+                <i class="fa-brands fa-discord"></i>
+                <p>Discord</p>
+                <small>@me</small>
             </div>
         </div>
-        
+
         <!-- About Section -->
-        <div class="section">
-            <h2 class="section-title">About NOTAXiD</h2>
-            <p class="about-text">
-                Hi, I'm <span class="highlight">NOTAXiD</span> — A passionate digital creator who specializes in creating 
-                amazing digital experiences. I love experimenting with graphics, designing clean digital interfaces, 
-                and exploring the latest in technology and gaming.
+        <div class="section-box">
+            <h2>About NotYourArisu</h2>
+
+            <p>
+                Hi, I'm <b>NotYourArisu</b> — A passionate digital creator who loves building
+                exciting digital experiences. I enjoy graphics, UI design, coding,
+                and exploring new tech and gaming trends.
             </p>
-            <p class="about-text">
-                When I'm not coding or designing, you'll find me gaming, exploring new tech trends, 
-                or working on creative projects that push the boundaries of digital innovation.
+
+            <p>
+                When I'm not coding or designing, you’ll find me gaming, creating,
+                or working on tech projects that push limits.
             </p>
-            
-            <div class="skills-grid">
-                <div class="skill-item">Digital Content Creation</div>
-                <div class="skill-item">Graphic Design</div>
-                <div class="skill-item">Web Development</div>
-                <div class="skill-item">Gaming</div>
-                <div class="skill-item">Tech Innovation</div>
-                <div class="skill-item">UI/UX Design</div>
+
+            <div class="skill-tags">
+                <div class="tag">Digital Content Creation</div>
+                <div class="tag">Graphic Design</div>
+                <div class="tag">Web Development</div>
+                <div class="tag">Gaming</div>
+                <div class="tag">Tech Innovation</div>
+                <div class="tag">UI/UX Design</div>
             </div>
         </div>
-        
-        <!-- Contact Section -->
-        <div class="section">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-info">
-                <p>Have a project in mind or want to collaborate?</p>
-                <p>Feel free to reach out to me!</p>
-                <a href="mailto:daksharya38989@gmail.com" class="email-link">
-                    daksharya38989@gmail.com
-                </a>
-            </div>
+
+        <!-- Contact -->
+        <div class="section-box">
+            <h2>Get In Touch</h2>
+            <p>Have a project or want to collaborate?  
+            Feel free to reach out to me!</p>
+
+            <h3 style="color: gold;">daksharya38989@gmail.com</h3>
         </div>
-        
+
         <!-- Footer -->
         <div class="footer">
-            <p>Made with ❤️ by Notaxid_op</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">
-                Digital Creator • Tech Enthusiast • Gamer
-            </p>
+            Made with 🗿 by <b>ArisuTech</b><br>
+            Digital Creator • Tech Enthusiast • Gamer
         </div>
+
     </div>
-
-    <script>
-        // Enhanced interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            const socialCards = document.querySelectorAll('.social-card');
-            const skillItems = document.querySelectorAll('.skill-item');
-            
-            // Social cards interaction
-            socialCards.forEach(card => {
-                card.addEventListener('touchstart', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                
-                card.addEventListener('touchend', function() {
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(0) scale(1)';
-                    }, 150);
-                });
-            });
-            
-            // Skill items interaction
-            skillItems.forEach(item => {
-                item.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(1.05)';
-                });
-                
-                item.addEventListener('touchend', function() {
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1)';
-                    }, 150);
-                });
-            });
-            
-            // Add floating animation to elements on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe all sections for animation
-            document.querySelectorAll('.section, .social-card, .timeline-item').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-        });
-    </script>
 </body>
-          </html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NotYouArisu - Digital Creator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: white;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        .bg-element {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 1;
-        }
-
-        .bg1 { width: 200px; height: 200px; top: 10%; left: 5%; animation: float 20s infinite linear; }
-        .bg2 { width: 150px; height: 150px; top: 60%; right: 8%; animation: float 25s infinite linear reverse; }
-        .bg3 { width: 100px; height: 100px; top: 80%; left: 15%; animation: float 30s infinite linear; }
-
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-            100% { transform: translateY(0px) rotate(360deg); }
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .header { text-align: center; margin-bottom: 3rem; padding-top: 2rem; }
-
-        .profile-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .profile-image {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .name {
-            font-size: 4.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ffffff, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tagline {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="bg-element bg1"></div>
-    <div class="bg-element bg2"></div>
-    <div class="bg-element bg3"></div>
-
-    <div class="container">
-
-        <!-- Header -->
-        <div class="header">
-            <div class="profile-container">
-                <div class="profile-image">
-                    <img src="pfp.jpg" alt="Profile Picture">
-                </div>
-            </div>
-            <h1 class="name">NotYouArisu</h1>
-            <p class="tagline">Digital Creator • Tech & Gaming Enthusiast</p>
-        </div>
-
-        <!-- The rest of your site remains the same -->
-        <!-- I DID NOT change anything else -->
+</html>
  
