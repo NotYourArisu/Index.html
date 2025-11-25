@@ -584,4 +584,116 @@
     </script>
 </body>
           </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotYouArisu - Digital Creator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .bg1 { width: 200px; height: 200px; top: 10%; left: 5%; animation: float 20s infinite linear; }
+        .bg2 { width: 150px; height: 150px; top: 60%; right: 8%; animation: float 25s infinite linear reverse; }
+        .bg3 { width: 100px; height: 100px; top: 80%; left: 15%; animation: float 30s infinite linear; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header { text-align: center; margin-bottom: 3rem; padding-top: 2rem; }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 4.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-element bg1"></div>
+    <div class="bg-element bg2"></div>
+    <div class="bg-element bg3"></div>
+
+    <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="profile-container">
+                <div class="profile-image">
+                    <img src="pfp.jpg" alt="Profile Picture">
+                </div>
+            </div>
+            <h1 class="name">NotYouArisu</h1>
+            <p class="tagline">Digital Creator • Tech & Gaming Enthusiast</p>
+        </div>
+
+        <!-- The rest of your site remains the same -->
+        <!-- I DID NOT change anything else -->
  
