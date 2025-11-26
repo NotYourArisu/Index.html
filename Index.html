@@ -3,483 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NotYourArisu - Digital Creator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>NotYourArisu - Gaming Portfolio</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        :root {
-            --primary: #ff4757;
-            --secondary: #2f3542;
-            --accent: #ffa502;
-            --light: #f1f2f6;
-            --dark: #2f3542;
-        }
-
+        
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: var(--light);
-            line-height: 1.6;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
             overflow-x: hidden;
+            min-height: 100vh;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
         }
-
+        
+        /* Header Styles */
         header {
-            padding: 40px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .profile-container {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 40px;
         }
-
-        .profile-pic {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 5px solid var(--accent);
-            overflow: hidden;
-            margin-bottom: 20px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 80px;
+        
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            animation: glow 2s infinite alternate;
         }
-
-        .profile-pic::before {
-            content: "";
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary));
-            z-index: -1;
-            animation: rotate 3s linear infinite;
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+            to { text-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff; }
         }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .name {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 10px rgba(255, 71, 87, 0.3);
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            color: #a4b0be;
-            margin-bottom: 30px;
-        }
-
-        section {
-            background: rgba(47, 53, 66, 0.7);
-            margin: 30px 0;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 25px;
-            color: var(--accent);
-            position: relative;
-            display: inline-block;
-        }
-
-        h2::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            color: #dfe4ea;
-        }
-
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .skill-category {
-            flex: 1;
-            min-width: 250px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent);
-        }
-
-        .skill-category h3 {
-            margin-bottom: 15px;
-            color: var(--accent);
-        }
-
-        .skill-category ul {
-            list-style-type: none;
-        }
-
-        .skill-category li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .skill-category li::before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background: var(--primary);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-            border-radius: 3px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-
-        .timeline-content {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
-
-        .timeline-content::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            background: var(--primary);
-            top: 22px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content::after {
-            left: -10px;
-        }
-
-        .year {
-            font-weight: bold;
-            color: var(--accent);
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-
-        .phase {
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .contact-info {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .email {
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin: 20px 0;
-            display: inline-block;
-            padding: 10px 20px;
-            background: rgba(255, 165, 2, 0.1);
-            border-radius: 30px;
-            border: 1px solid var(--accent);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
+        
+        /* Profile Section */
+        .profile-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-decoration: none;
-            color: var(--light);
-            transition: transform 0.3s, color 0.3s;
-            padding: 15px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            min-width: 120px;
+            margin-bottom: 60px;
+            position: relative;
         }
-
-        .social-link:hover {
-            transform: translateY(-5px);
-            color: var(--accent);
-            background: rgba(255, 165, 2, 0.1);
+        
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid #ff00ff;
+            box-shadow: 0 0 20px #ff00ff;
+            overflow: hidden;
+            margin-bottom: 20px;
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
         }
-
-        .social-icon {
-            font-size: 2rem;
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-name {
+            font-size: 48px;
+            font-weight: 900;
             margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
+        
+        .profile-tagline {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        /* Connections Section */
+        .connections {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .connection-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .connection-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 0, 255, 0.3);
+        }
+        
+        .connection-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .connection-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #00ffff;
+        }
+        
+        .connection-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .connection-link:hover {
+            color: #ff00ff;
+        }
+        
+        /* Skills Section */
+        .skills-section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+        }
+        
+        .skill-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #ff00ff;
+        }
+        
+        .skill-description {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
         footer {
             text-align: center;
             padding: 30px 0;
-            margin-top: 50px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #a4b0be;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+            font-size: 14px;
+            opacity: 0.7;
         }
-
-        .made-with {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
+        
+        /* Background Elements */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
-
-        .heart {
-            color: var(--primary);
-            animation: heartbeat 1.5s infinite;
+        
+        .pixel {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: floatPixel 15s infinite linear;
         }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            5% { transform: scale(1.1); }
-            10% { transform: scale(1); }
-            15% { transform: scale(1.1); }
-            20% { transform: scale(1); }
-            100% { transform: scale(1); }
+        
+        @keyframes floatPixel {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
-
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .timeline::after {
-                left: 31px;
+            .profile-name {
+                font-size: 36px;
             }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
+            
+            .connections {
+                gap: 15px;
             }
-
-            .timeline-item:nth-child(even) {
-                left: 0;
+            
+            .connection-card {
+                width: 150px;
             }
-
-            .timeline-content::after {
-                left: 21px !important;
-            }
-
-            .name {
-                font-size: 2.2rem;
-            }
-
-            section {
-                padding: 25px;
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <div class="bg-elements" id="bgElements"></div>
+    
     <div class="container">
         <header>
-            <div class="profile-container">
-                <div class="profile-pic">
-                    <i class="fas fa-user"></i>
-                </div>
-                <h1 class="name">NotYourArisu</h1>
-                <p class="tagline">Digital Creator • Tech & Gaming Enthusiast</p>
-            </div>
+            <div class="logo">NotYourArisu</div>
+            <div class="tagline">Gaming Enthusiast & Content Creator</div>
         </header>
-
-        <section class="about">
-            <h2>About Me</h2>
-            <p class="about-text">
-                Hi, I'm <strong>NotYourArisu</strong> — A passionate digital creator who specializes in creating amazing digital experiences. I love experimenting with graphics, designing clean digital interfaces, and exploring the latest in technology and gaming.
-            </p>
-            <p class="about-text">
-                When I'm not coding or designing, you'll find me gaming, exploring new tech trends, or working on creative projects that push the boundaries of digital innovation.
-            </p>
-
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3>Digital Content Creation</h3>
-                    <ul>
-                        <li>Graphic Design</li>
-                        <li>Web Development</li>
-                        <li>Gaming</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Tech Innovation</h3>
-                    <ul>
-                        <li>UI/UX Design</li>
-                        <li>Frontend Development</li>
-                        <li>Digital Art</li>
-                    </ul>
-                </div>
+        
+        <section class="profile-section">
+            <div class="profile-pic">
+                <!-- Your profile picture will go here -->
+                <div style="width:100%;height:100%;background:linear-gradient(45deg, #ff00ff, #00ffff);display:flex;align-items:center;justify-content:center;color:white;font-size:14px;">Your Profile Pic</div>
             </div>
+            <h1 class="profile-name">NotYourArisu</h1>
+            <p class="profile-tagline">Gaming • Content Creation • Community</p>
         </section>
-
-        <section class="journey">
-            <h2>Journey</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="year">2005</div>
-                        <div class="phase">BEGINNING</div>
-                        <p>Started my journey in the digital world</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="phase">PRE</div>
-                        <div class="phase-desc">LEARNING</div>
-                        <p>Learning the fundamentals of design and development</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="phase">ARF</div>
-                        <div class="phase-desc">GROWTH</div>
-                        <p>Expanding skills and working on more complex projects</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="year">2017</div>
-                        <div class="phase">BREAKTHROUGH</div>
-                        <p>Reached significant milestones in my career</p>
-                    </div>
-                </div>
+        
+        <section class="connections">
+            <div class="connection-card">
+                <div class="connection-icon">▶️</div>
+                <h3 class="connection-title">YouTube</h3>
+                <a href="https://www.youtube.com/Arisu.ex3" class="connection-link" target="_blank">www.youtube.com/Arisu.ex3</a>
             </div>
-        </section>
-
-        <section class="contact">
-            <h2>Get In Touch</h2>
-            <p class="about-text">Have a project in mind or want to collaborate? Feel free to reach out to me!</p>
             
-            <div class="contact-info">
-                <a href="mailto:daksharya38989@gmail.com" class="email">daksharya38989@gmail.com</a>
+            <div class="connection-card">
+                <div class="connection-icon">💬</div>
+                <h3 class="connection-title">Discord</h3>
+                <a href="#" class="connection-link">@me</a>
             </div>
-
-            <div class="social-links">
-                <a href="#" class="social-link">
-                    <i class="fab fa-youtube social-icon"></i>
-                    <span>YouTube</span>
-                    <small>@sunitakumarinursingofficer</small>
-                </a>
-                <a href="#" class="social-link">
-                    <i class="fab fa-github social-icon"></i>
-                    <span>GitHub</span>
-                    <small>NotYourArisu</small>
-                </a>
-                <a href="#" class="social-link">
-                    <i class="fab fa-discord social-icon"></i>
-                    <span>Discord</span>
-                    <small>@me</small>
-                </a>
+            
+            <div class="connection-card">
+                <div class="connection-icon">🎮</div>
+                <h3 class="connection-title">Roblox</h3>
+                <a href="#" class="connection-link">@AM_DAKSH11</a>
             </div>
         </section>
-
+        
+        <section class="skills-section">
+            <h2 class="section-title">My Gaming Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3 class="skill-title">FPS Expertise</h3>
+                    <p class="skill-description">Master of first-person shooters with exceptional aim, strategy, and game sense across multiple titles.</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h3 class="skill-title">Content Creation</h3>
+                    <p class="skill-description">Creating engaging gaming content, tutorials, and entertaining gameplay videos for the community.</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h3 class="skill-title">Team Leadership</h3>
+                    <p class="skill-description">Experienced in leading squads and coordinating strategies for competitive gameplay.</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h3 class="skill-title">Game Analysis</h3>
+                    <p class="skill-description">Deep understanding of game mechanics, meta strategies, and optimization techniques.</p>
+                </div>
+            </div>
+        </section>
+        
         <footer>
-            <p>Made with <span class="heart">❤️</span> by NotYourArisu</p>
-            <p class="made-with">Digital Creator • Tech Enthusiast • Gamer</p>
+            <p>© 2023 NotYourArisu. All rights reserved. | Gaming Portfolio</p>
         </footer>
     </div>
 
     <script>
-        // Simple animation on scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('section');
+        // Create floating background elements
+        function createBgElements() {
+            const bgContainer = document.getElementById('bgElements');
+            const elementCount = 50;
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            sections.forEach(section => {
-                section.style.opacity = 0;
-                section.style.transform = 'translateY(20px)';
-                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(section);
-            });
+            for (let i = 0; i < elementCount; i++) {
+                const pixel = document.createElement('div');
+                pixel.classList.add('pixel');
+                
+                // Random properties
+                const size = Math.random() * 6 + 2;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                pixel.style.width = `${size}px`;
+                pixel.style.height = `${size}px`;
+                pixel.style.left = `${left}vw`;
+                pixel.style.animationDuration = `${animationDuration}s`;
+                pixel.style.animationDelay = `${animationDelay}s`;
+                
+                bgContainer.appendChild(pixel);
+            }
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            createBgElements();
         });
     </script>
 </body>
-                                                  </html>
+    </html>
+    
     
